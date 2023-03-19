@@ -1,0 +1,28 @@
+name: Train model
+inputs:
+- {name: train_tensor_path, type: Artifact}
+- {name: val_tensor_path, type: Artifact}
+- {name: test_tensor_path, type: Artifact}
+outputs:
+- {name: final_model, type: Artifact}
+implementation:
+  container:
+    image: <username>/kubeflow
+    command:
+    - sh
+    - -c
+    - |2
+
+      if ! [ -x "$(command -v pip)" ]; then
+          python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip
+      fi
+
+      PIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'pandas' 'torch' && "$0" "$@"
+    - python3
+    - -m
+    - kfp.v2.components.executor_main
+    args:
+    - --executor_input
+    - {executorInput: null}
+    - --function_to_execute
+    - train_model
