@@ -1,6 +1,6 @@
 # Kubeflow pipelines MNIST example
 
-For further information about this repository, refer to the corresponding [Medium article]().
+For further information about this repository, refer to the corresponding [Medium article](https://medium.com/p/84ea82c3496e).
 
 ## Prerequisites
 
